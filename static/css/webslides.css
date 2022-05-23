@@ -1,7 +1,7 @@
 /*!
  * Name: WebSlides
  * Version: 1.5.0
- * Date: 2018-01-01
+ * Date: 2017-09-16
  * Description: Making HTML presentations easy
  * URL: https://github.com/webslides/webslides#readme
  * Credits: @jlantunez, @LuisSacristan, @Belelros
@@ -3334,8 +3334,8 @@ nav li.linkedin a:hover {
 nav li.dribbble a:hover {
   background-color: #ea4c89; }
 
-nav li.github a:hover {
-  background-color: #60b044; }
+nav li.youtube a:hover {
+  background-color: #FF0000; }
 
 nav li.email a:hover {
   background-color: #dd4b39; }

@@ -1,7 +1,7 @@
 /*!
  * Name: WebSlides
  * Version: 1.5.0
- * Date: 2018-01-01
+ * Date: 2017-09-16
  * Description: Making HTML presentations easy
  * URL: https://github.com/webslides/webslides#readme
  * Credits: @jlantunez, @LuisSacristan, @Belelros
@@ -263,8 +263,7 @@ var DOM = function () {
       var eventInfo = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
 
       var event = new __WEBPACK_IMPORTED_MODULE_0__custom_event__["a" /* default */](eventType, {
-        detail: eventInfo,
-        bubbles: true
+        detail: eventInfo
       });
 
       target.dispatchEvent(event);
@@ -378,9 +377,8 @@ var CLASSES = {
 var Events = {
   ENTER: 'dom:enter',
   LEAVE: 'dom:leave',
-  DISABLE: 'slide:disable',
   ENABLE: 'slide:enable',
-  SHOW: 'slide:show'
+  DISABLE: 'slide:disable'
 };
 
 /**
@@ -410,7 +408,7 @@ var Slide = function () {
      */
     this.i = i;
 
-    this.el.id = this.el.id ? this.el.id : 'section-' + (i + 1);
+    this.el.id = 'section-' + (i + 1);
     this.el.classList.add(CLASSES.SLIDE);
 
     // Hide slides by default
@@ -438,7 +436,6 @@ var Slide = function () {
     value: function show() {
       __WEBPACK_IMPORTED_MODULE_0__utils_dom__["a" /* default */].show(this.el);
       this.el.classList.add(CLASSES.CURRENT);
-      this.fire_(Events.SHOW);
     }
 
     /**
@@ -1909,10 +1906,6 @@ var Navigation = function () {
     this.el.appendChild(this.counter);
 
     this.ws_.el.appendChild(this.el);
-    this.slides = Array.prototype.slice.call(document.querySelectorAll('#webslides section')).map(function (s) {
-      return s.id;
-    });
-
     this.bindEvents_();
   }
 
@@ -1929,32 +1922,6 @@ var Navigation = function () {
       this.next.addEventListener('click', this.onButtonClicked_.bind(this));
       this.prev.addEventListener('click', this.onButtonClicked_.bind(this));
       this.counter.addEventListener('click', this.onButtonClicked_.bind(this));
-      document.body.addEventListener('click', this.onBodyClicked_.bind(this));
-    }
-
-    /**
-     * Whenever the body is clicked, check if the element has [data-slide] attr
-     * and if so, navigate to it.
-     * @param {MouseEvent} event Click event
-     */
-
-  }, {
-    key: 'onBodyClicked_',
-    value: function onBodyClicked_(event) {
-      var matches = document.body.matches || document.body.msMatchesSelector;
-      var el = void 0;
-
-      if (matches.call(event.target, '[data-slide]')) {
-        el = event.target;
-      } else if (matches.call(event.target, '[data-slide] *')) {
-        el = event.target.querySelector('[data-slide]');
-      }
-
-      if (el) {
-        event.preventDefault();
-        var i = this.slides.indexOf(el.dataset.slide);
-        this.ws_.goToSlide(i);
-      }
     }
 
     /**
